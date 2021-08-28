@@ -1,34 +1,26 @@
 import { Router } from "express";
-import { CreateUserController } from "./controllers/CreateUserController";
-import { DeleteUserController } from "./controllers/DeleteUserController";
-import { GetUserDataController } from "./controllers/GetUserDataController";
-import { ListUsersController } from "./controllers/ListUsersController";
-import { SearchUserController } from "./controllers/SearchUserController";
-import { UpdateUserController } from "./controllers/UpdateUserController";
+
+import { UsuarioController } from "./controllers/usuarioController";
 
 const router = Router();
 
-const createUserController = new CreateUserController();
-const searchUserController = new SearchUserController();
-const updateUserController = new UpdateUserController();
-const deleteUserController = new DeleteUserController();
-const listUsersController = new ListUsersController();
-const getUserDataController = new GetUserDataController();
 
-router.get("/", listUsersController.handle);
+const usuarioController = new UsuarioController();
+
+router.get("/", usuarioController.listUsers);
 
 router.get("/add", (request, response) => {
   response.render("add");
 });
 
-router.post("/add-user", createUserController.handle);
+router.post("/add-user", usuarioController.createUser);
 
-router.get("/search", searchUserController.handle);
+router.get("/search",usuarioController.searchUser);
 
-router.get("/edit", getUserDataController.handle);
+router.get("/edit", usuarioController.getUserData);
 
-router.post("/edit-user", updateUserController.handle);
+router.post("/edit-user", usuarioController.updateUser);
 
-router.post("/delete-user", deleteUserController.handle);
+router.post("/delete-user", usuarioController.deleteUser);
 
 export { router };
