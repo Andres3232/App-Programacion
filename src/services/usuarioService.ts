@@ -5,22 +5,15 @@ import { UsersRepository } from "../repositories/UsersRepository";
 
 
 interface IUser {
-    
+  
+    id?: string;
     username: string;
     email: string;
     Telefono: string;
     Ciudad: string;
-    estado: string;
+    Estado: string;
   }
 
-  interface IUserUpdate {
-    id: string
-    username: string;
-    email: string;
-    Telefono: string;
-    Ciudad: string;
-    estado: string;
-  }
 
 class UsuarioService {
 
@@ -34,8 +27,8 @@ class UsuarioService {
       }
 
   //crear usuarios
-      async create({ username, email, Telefono, Ciudad, estado }: IUser) {
-        if (!username || !email || !Telefono || !Ciudad || !estado) {
+      async create({ username, email, Telefono, Ciudad, Estado }: IUser) {
+        if (!username || !email || !Telefono || !Ciudad || !Estado) {
           throw new Error("Por favor escribe todo los campos");
         }
     
@@ -53,7 +46,7 @@ class UsuarioService {
           throw new Error("Email ya esta registrado");
         }
     
-        const user = usersRepository.create({ username, email, Telefono, Ciudad, estado });
+        const user = usersRepository.create({ username, email, Telefono, Ciudad, Estado });
     
         await usersRepository.save(user);
     
@@ -74,7 +67,7 @@ class UsuarioService {
           .orWhere("email like :search", { search: `%${search}%` })
           .orWhere("Telefono like :search", { search: `%${search}%` })
           .orWhere("Ciudad like :search", { search: `%${search}%` })
-          .orWhere("estado like :search", { search: `%${search}%` })
+          .orWhere("Estado like :search", { search: `%${search}%` })
           .getMany();
     
         return user;
@@ -91,13 +84,13 @@ class UsuarioService {
         return user;
       }
 
-      async update({ id, username, email, Telefono, Ciudad, estado }: IUserUpdate) {
+      async update({ id, username, email, Telefono, Ciudad, Estado }: IUser) {
         const usersRepository = getCustomRepository(UsersRepository);
     
         const user = await usersRepository
           .createQueryBuilder()
           .update(User)
-          .set({ username, email, Telefono, Ciudad, estado })
+          .set({ username, email, Telefono, Ciudad, Estado })
           .where("id = :id", { id })
           .execute();
     

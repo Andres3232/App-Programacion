@@ -20,7 +20,7 @@ class User {
   Ciudad: string;
 
   @Column()
-  estado: string;
+  Estado: string;
 
   @CreateDateColumn()
   created_at: Date;

@@ -1,35 +1,43 @@
 
 import { Request, Response } from "express";
-
 import { UsuarioService } from "../services/usuarioService"
+
+const UsersService = new UsuarioService();
+
 
 class UsuarioController {
      
     //metodo para listar usuarios
     async listUsers(request: Request, response: Response) {
-        const listUsersService = new UsuarioService();
     
-        const users = await listUsersService.list();
+        const users = await UsersService.list();
     
         return response.render("index", {
-          users: users
+          users
+        });
+      }
+      async listUserss(request: Request, response: Response) {
+    
+        const users = await UsersService.list();
+    
+        return response.render("index", {
+          users
         });
       }
 
       //metodo para agregar usuario
       async createUser(request: Request, response: Response) {
-        const { username, email, Telefono, Ciudad, estado } = request.body;
-    
-        const createUserService = new UsuarioService();
+        const { username, email, Telefono, Ciudad, Estado } = request.body;
     
         try {
-          await createUserService.create({
+          await UsersService.create({
             username,
             email,
             Telefono,
             Ciudad,
-            estado
+            Estado
           }).then(() => {
+            response.redirect("/lista") ;
             response.render("message", {
               message: "Usuario creado con exito"
             });
@@ -46,14 +54,13 @@ class UsuarioController {
       async searchUser(request: Request, response: Response) {
         let { search } = request.query;
         search = search.toString();
-    
-        const searchUserService = new UsuarioService();
+
     
         try {
-          const users = await searchUserService.search(search);
+          const users = await UsersService.search(search);
           response.render("search", {
-            users: users,
-            search: search
+            users,
+            search
           });
         } catch (err) {
           response.render("message", {
@@ -67,23 +74,19 @@ class UsuarioController {
         let { id } = request.query;
         id = id.toString();
     
-        const getUserDataService = new UsuarioService();
-    
-        const user = await getUserDataService.getData(id);
+        const user = await UsersService.getData(id);
     
         return response.render("edit", {
-          user: user
+          user
         });
       }
 
       //editar el usuario
       async updateUser(request: Request, response: Response) {
-        const { id, username, email, Telefono, Ciudad, estado } = request.body;
-    
-        const updateUserService = new UsuarioService();
+        const { id, username, email, Telefono, Ciudad, Estado } = request.body;
     
         try {
-          await updateUserService.update({ id, username, email, Telefono, Ciudad, estado }).then(() => {
+          await UsersService.update({ id, username, email, Telefono, Ciudad, Estado }).then(() => {
             response.render("message", {
               message: "Usuario actualizado"
             });
@@ -100,14 +103,10 @@ class UsuarioController {
       //borrar usuario
       async deleteUser(request: Request, response: Response) {
         const { id } = request.body;
-    
-        const deleteUserService = new UsuarioService();
-    
         try {
-          await deleteUserService.delete(id).then(() => {
-            response.render("message", {
-              message: "Usuario eliminado"
-            });
+          await UsersService.delete(id).then(() => {
+            response.redirect("/lista") ;
+            response.render("message", {message: "Usuario eliminado"}) 
           });
         } catch (err) {
           response.render("message", {

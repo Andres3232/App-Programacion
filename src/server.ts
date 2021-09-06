@@ -4,6 +4,7 @@ import express, { Request, Response, NextFunction } from "express";
 import path from "path";
 import { router } from "./routes";
 import "./database";
+import passport from 'passport'
 
 const app = express();
 

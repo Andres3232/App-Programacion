@@ -7,11 +7,17 @@ const router = Router();
 
 const usuarioController = new UsuarioController();
 
-router.get("/", usuarioController.listUsers);
+router.get("/",(request, response) => {
+  response.render("home");
+});
 
 router.get("/add", (request, response) => {
   response.render("add");
 });
+
+router.get("/lista", usuarioController.listUsers)
+
+
 
 router.post("/add-user", usuarioController.createUser);
 
