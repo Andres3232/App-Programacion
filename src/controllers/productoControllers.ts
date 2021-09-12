@@ -1,46 +1,40 @@
 
 import { Request, Response } from "express";
-import { UsuarioService } from "../services/usuarioService"
-
-const UsersService = new UsuarioService();
+import { ProductService } from "../services/productService";
 
 
-class UsuarioController {
+const ProductsService = new ProductService();
+
+
+class ProductController {
      
     //metodo para listar usuarios
-    async listUsers(request: Request, response: Response) {
+    async listProducts(request: Request, response: Response) {
     
-        const users = await UsersService.list();
-    
-        return response.render("index", {
-          users
-        });
-      }
-      async listUserss(request: Request, response: Response) {
-    
-        const users = await UsersService.list();
+        const products = await ProductsService.list();
     
         return response.render("index", {
-          users
+          products
         });
       }
 
+
       //metodo para agregar usuario
-      async createUser(request: Request, response: Response) {
-        const { username, email, Telefono, Ciudad, Estado } = request.body;
+      async createProduct(request: Request, response: Response) {
+        const { id, productname, price, type, category_id } = request.body;
     
         try {
-          await UsersService.create({
-            username,
-            email,
-            Telefono,
-            Ciudad,
-            Estado
+          await ProductsService.create({
+            id,
+            productname,
+            price,
+            type,
+            category_id
           }).then(() => {
-            response.redirect("/lista") ;
             response.render("message", {
               message: "Usuario creado con exito"
             });
+            response.redirect("/lista") ;
           });
         } catch (err) {
           response.render("message", {
@@ -50,16 +44,16 @@ class UsuarioController {
     
       }
 
-      //metodo para buscar usuario
-      async searchUser(request: Request, response: Response) {
+      //metodo para buscar Product
+      async searchProduct(request: Request, response: Response) {
         let { search } = request.query;
         search = search.toString();
 
     
         try {
-          const users = await UsersService.search(search);
+          const products = await ProductsService.search(search);
           response.render("search", {
-            users,
+            products,
             search
           });
         } catch (err) {
@@ -69,48 +63,49 @@ class UsuarioController {
         }
       }
 
-      //traer la data del usuario
-      async getUserData(request: Request, response: Response) {
+      //traer la data del producto
+      async getProductData(request: Request, response: Response) {
         let { id } = request.query;
         id = id.toString();
     
-        const user = await UsersService.getData(id);
+        const product = await ProductsService.getData(id);
     
         return response.render("edit", {
-          user
+          product
         });
       }
 
       //editar el usuario
       async updateUser(request: Request, response: Response) {
-        const { id, username, email, Telefono, Ciudad, Estado } = request.body;
+        const { id, productname, price, type, category_id } = request.body;
+
     
         try {
-          await UsersService.update({ id, username, email, Telefono, Ciudad, Estado }).then(() => {
+          await ProductsService.update({ id, productname, price, type, category_id }).then(() => {
             response.render("message", {
-              message: "Usuario actualizado"
+              message: "producto actualizado"
             });
           });
         } catch (err) {
           response.render("message", {
-            message: `Error al actualizar el usuario: ${err.message}`
+            message: `Error al actualizar el producto: ${err.message}`
           });
         }
     
       }
 
 
-      //borrar usuario
-      async deleteUser(request: Request, response: Response) {
+      //borrar product
+      async deleteProduct(request: Request, response: Response) {
         const { id } = request.body;
         try {
-          await UsersService.delete(id).then(() => {
-            response.redirect("/lista") ;
-            response.render("message", {message: "Usuario eliminado"}) 
+          await ProductsService.delete(id).then(() => {
+            response.redirect("/lista") ; // arreglar la ruta producto
+            response.render("message", {message: "Producto liminado"}) 
           });
         } catch (err) {
           response.render("message", {
-            message: `Error al eliminar el usuario: ${err.message}`
+            message: `Error al eliminar el producto: ${err.message}`
           });
         }
       }
@@ -119,4 +114,4 @@ class UsuarioController {
 
     
 }
-export  { UsuarioController };
+export  { ProductController };

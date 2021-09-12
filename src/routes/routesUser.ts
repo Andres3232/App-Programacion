@@ -1,6 +1,7 @@
 import { Router } from "express";
+import { UsuarioController } from "../controllers/usuarioController";
 
-imhb
+
 
 const router = Router();
 

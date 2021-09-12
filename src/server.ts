@@ -2,9 +2,10 @@ import "reflect-metadata";
 import "express-async-errors";
 import express, { Request, Response, NextFunction } from "express";
 import path from "path";
-import { router } from "./routes";
+import { router } from "./routes/routesUser";
 import "./database";
 import passport from 'passport'
+
 const expressLayouts= require('express-ejs-layouts')
 
 const app = express();
