@@ -30,14 +30,13 @@ class ProductController {
             type,
             category_id
           }).then(() => {
-            response.render("message", {
-              message: "Usuario creado con exito"
+            response.render("messageProducto", {
+              message: "Producto creado con éxito"
             });
-            response.redirect("/lista-producto") ;
           });
         } catch (err) {
-          response.render("message", {
-            message: `Error al crear el usuario: ${err.message}`
+          response.render("messageProducto", {
+            message: `Error al crear el producto: ${err.message}`
           });
         }
     
@@ -66,51 +65,45 @@ class ProductController {
       async getProductData(request: Request, response: Response) {
         let { id } = request.query;
         id = id.toString();
-    
+        
         const product = await ProductsService.getData(id);
-    
-        return response.render("edit", {
+        return response.render("edit-producto", {
           product
         });
       }
 
       //editar el usuario
-      async updateUser(request: Request, response: Response) {
+      async updateProduct(request: Request, response: Response) {
         const { id, productname, price, type, category_id } = request.body;
 
     
         try {
           await ProductsService.update({ id, productname, price, type, category_id }).then(() => {
-            response.render("message", {
+            response.render("messageProducto", {
               message: "producto actualizado"
             });
           });
+
         } catch (err) {
-          response.render("message", {
+          response.render("messageProducto", {
             message: `Error al actualizar el producto: ${err.message}`
           });
         }
     
       }
 
-
       //borrar product
       async deleteProduct(request: Request, response: Response) {
         const { id } = request.body;
         try {
           await ProductsService.delete(id).then(() => {
-            response.redirect("/lista-productos") ; // arreglar la ruta producto
-            response.render("message", {message: "Producto liminado"}) 
+            response.render("messageProducto", {message: "Producto eliminado"}) 
           });
         } catch (err) {
-          response.render("message", {
+          response.render("messageProducto", {
             message: `Error al eliminar el producto: ${err.message}`
           });
         }
       }
-
-
-
-    
 }
 export  { ProductController };

@@ -37,7 +37,7 @@ class UsuarioController {
             Ciudad,
             Estado
           }).then(() => {
-            response.redirect("/lista") ;
+        
             response.render("message", {
               message: "Usuario creado con exito"
             });
@@ -91,6 +91,7 @@ class UsuarioController {
               message: "Usuario actualizado"
             });
           });
+
         } catch (err) {
           response.render("message", {
             message: `Error al actualizar el usuario: ${err.message}`
@@ -105,7 +106,7 @@ class UsuarioController {
         const { id } = request.body;
         try {
           await UsersService.delete(id).then(() => {
-            response.redirect("/lista") ;
+            
             response.render("message", {message: "Usuario eliminado"}) 
           });
         } catch (err) {

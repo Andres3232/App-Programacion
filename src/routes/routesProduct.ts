@@ -5,15 +5,25 @@ import { ProductController } from '../controllers/productoControllers';
 
 
 
-const router1 = Router();
+const routerProduct = Router();
 
 
 const productoController = new ProductController()
 
+routerProduct.get("/add-producto", (request, response) => {
+    response.render("add-producto");
+});
 
 
+routerProduct.get("/lista-producto", productoController.listProducts)
 
-router1.get("/lista-producto", productoController.listProducts)
+routerProduct.post("/add-producto",productoController.createProduct)
 
-export { router1 };
+
+routerProduct.get("/edit-producto",productoController.getProductData)
+routerProduct.post("/edit-product",productoController.updateProduct)
+
+routerProduct.post("/delete-producto",productoController.deleteProduct)
+
+export { routerProduct };
   

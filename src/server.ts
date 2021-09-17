@@ -3,7 +3,7 @@ import "express-async-errors";
 import express, { Request, Response, NextFunction } from "express";
 import path from "path";
 import { router } from "./routes/routesUser";
-import { router1 }   from "./routes/routesProduct";
+import { routerProduct }   from "./routes/routesProduct";
 
 import "./database";
 //import router as userRouter  from "./routes/routesUser"
@@ -17,9 +17,10 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+//RUTAS
 app.use(router);
+app.use(routerProduct);
 
-app.use(router1);
 
 app.use((err: Error, request: Request, response: Response, next: NextFunction) => {
   if (err instanceof Error) {

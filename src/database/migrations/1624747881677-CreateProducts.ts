@@ -29,11 +29,6 @@ export class CreateProducts1624747881677 implements MigrationInterface {
                         type: "int"
                     },
                     {
-                        name: "estado",
-                        type: "varchar",
-                        length: "2"
-                    },
-                    {
                         name: "created_at",
                         type: "timestamp",
                         default: "now()"

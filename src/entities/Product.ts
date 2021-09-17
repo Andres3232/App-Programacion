@@ -5,7 +5,7 @@ import { v4 as uuid } from "uuid";
 class Product {
 
   @PrimaryColumn()
-  id: number;
+  id: string;
 
   @Column()
   productname: string;
@@ -27,7 +27,7 @@ class Product {
 
   constructor() {
     if (!this.id) {
-      this.id = parseInt(uuid());
+      this.id = uuid();
     }
   }
 

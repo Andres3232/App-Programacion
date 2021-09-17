@@ -8,7 +8,7 @@ import {ProductsRepository} from "../repositories/ProductsRepository";
 
 interface IProduct{
   
-    id?: number;
+    id?: string;
     productname: string;
     price: number;
     type: string;
@@ -29,8 +29,8 @@ class ProductService {
       }
 
   //crear producto
-      async create({ productname, price, type }: IProduct) {
-        if (!productname || !price || !type ) {
+      async create({ productname, price, type, category_id }: IProduct) {
+        if (!productname || !price || !type || !category_id) {
           throw new Error("Por favor escribe todo los campos");
         }
     
@@ -42,7 +42,7 @@ class ProductService {
           throw new Error("Producto ya esta registrado");
         }
     
-        const product = productsRepository.create({ productname, price, type});
+        const product = productsRepository.create({ productname, price, type,category_id});
     
         await productsRepository.save(product);
     
@@ -63,6 +63,7 @@ class ProductService {
           .where("productname like :search", { search: `%${search}%` })
           .orWhere("price like :search", { search: `%${search}%` })
           .orWhere(" type :search", { search: `%${search}%` })
+          .orWhere(" category_id :search", { search: `%${search}%` })
           .getMany();
     
         return product;
@@ -79,14 +80,14 @@ class ProductService {
         return product;
       }
 
-      async update({ productname, price, type }: IProduct) {
+      async update({ id, productname, price, type, category_id }: IProduct) {
         const productsRepository = getCustomRepository(ProductsRepository);
     
         const product = await productsRepository
           .createQueryBuilder()
           .update(Product)
-          .set({ productname, price, type })
-          .where("id = :id", { id:Number})
+          .set({ productname, price, type, category_id })
+          .where("id = :id", { id })
           .execute();
     
         return product;
