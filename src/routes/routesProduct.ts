@@ -5,7 +5,7 @@ import { ProductController } from '../controllers/productoControllers';
 
 
 
-const router = Router();
+const router1 = Router();
 
 
 const productoController = new ProductController()
@@ -13,4 +13,7 @@ const productoController = new ProductController()
 
 
 
-  router.get("/lista-producto", productoController.listProducts)
+router1.get("/lista-producto", productoController.listProducts)
+
+export { router1 };
+  

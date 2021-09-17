@@ -5,7 +5,7 @@ export class CreateProducts1624747881677 implements MigrationInterface {
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: "Product",
+                name: "products",
                 columns: [
                     {
                         name: "id",
@@ -25,13 +25,23 @@ export class CreateProducts1624747881677 implements MigrationInterface {
                         type: "varchar"
                     },
                     {
-                        name:"categoty_id",
+                        name:"category_id",
                         type: "int"
                     },
                     {
                         name: "estado",
                         type: "varchar",
                         length: "2"
+                    },
+                    {
+                        name: "created_at",
+                        type: "timestamp",
+                        default: "now()"
+                    },
+                    {
+                        name: "updated_at",
+                        type: "timestamp",
+                        default: "now()"
                     }
                 ]
             })

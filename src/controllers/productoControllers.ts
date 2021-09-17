@@ -12,10 +12,9 @@ class ProductController {
     async listProducts(request: Request, response: Response) {
     
         const products = await ProductsService.list();
-    
-        return response.render("index", {
+        return response.render("lista-producto",{
           products
-        });
+        })
       }
 
 
@@ -34,7 +33,7 @@ class ProductController {
             response.render("message", {
               message: "Usuario creado con exito"
             });
-            response.redirect("/lista") ;
+            response.redirect("/lista-producto") ;
           });
         } catch (err) {
           response.render("message", {
@@ -100,7 +99,7 @@ class ProductController {
         const { id } = request.body;
         try {
           await ProductsService.delete(id).then(() => {
-            response.redirect("/lista") ; // arreglar la ruta producto
+            response.redirect("/lista-productos") ; // arreglar la ruta producto
             response.render("message", {message: "Producto liminado"}) 
           });
         } catch (err) {

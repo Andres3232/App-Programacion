@@ -3,8 +3,12 @@ import "express-async-errors";
 import express, { Request, Response, NextFunction } from "express";
 import path from "path";
 import { router } from "./routes/routesUser";
+import { router1 }   from "./routes/routesProduct";
+
 import "./database";
-import passport from 'passport'
+//import router as userRouter  from "./routes/routesUser"
+//import  router as productRouter from "./routes/routesProduct"
+
 
 const expressLayouts= require('express-ejs-layouts')
 
@@ -14,6 +18,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(router);
+
+app.use(router1);
 
 app.use((err: Error, request: Request, response: Response, next: NextFunction) => {
   if (err instanceof Error) {
