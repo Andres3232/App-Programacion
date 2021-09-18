@@ -1,9 +1,9 @@
 
 import { Request, Response } from "express";
-import { ProductService } from "../services/productService";
+
+import { productService } from "../services/productService";
 
 
-const ProductsService = new ProductService();
 
 
 class ProductController {
@@ -11,7 +11,7 @@ class ProductController {
     //metodo para listar usuarios
     async listProducts(request: Request, response: Response) {
     
-        const products = await ProductsService.list();
+        const products = await productService.list();
         return response.render("lista-producto",{
           products
         })
@@ -23,7 +23,7 @@ class ProductController {
         const { id, productname, price, type, category_id } = request.body;
     
         try {
-          await ProductsService.create({
+          await productService.create({
             id,
             productname,
             price,
@@ -49,7 +49,7 @@ class ProductController {
 
     
         try {
-          const products = await ProductsService.search(search);
+          const products = await productService.search(search);
           response.render("search", {
             products,
             search
@@ -66,7 +66,7 @@ class ProductController {
         let { id } = request.query;
         id = id.toString();
         
-        const product = await ProductsService.getData(id);
+        const product = await productService.getData(id);
         return response.render("edit-producto", {
           product
         });
@@ -78,7 +78,7 @@ class ProductController {
 
     
         try {
-          await ProductsService.update({ id, productname, price, type, category_id }).then(() => {
+          await productService.update({ id, productname, price, type, category_id }).then(() => {
             response.render("messageProducto", {
               message: "producto actualizado"
             });
@@ -96,7 +96,7 @@ class ProductController {
       async deleteProduct(request: Request, response: Response) {
         const { id } = request.body;
         try {
-          await ProductsService.delete(id).then(() => {
+          await productService.delete(id).then(() => {
             response.render("messageProducto", {message: "Producto eliminado"}) 
           });
         } catch (err) {

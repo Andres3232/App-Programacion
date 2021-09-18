@@ -116,5 +116,5 @@ class UsuarioService {
 
 }
 
-
-export { UsuarioService };
+export const userService =new UsuarioService()
+export default{ UsuarioService };

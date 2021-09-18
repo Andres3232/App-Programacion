@@ -1,8 +1,10 @@
 
 import { Request, Response } from "express";
-import { UsuarioService } from "../services/usuarioService"
 
-const UsersService = new UsuarioService();
+import { userService } from "../services/usuarioService"
+
+
+
 
 
 class UsuarioController {
@@ -10,7 +12,7 @@ class UsuarioController {
     //metodo para listar usuarios
     async listUsers(request: Request, response: Response) {
     
-        const users = await UsersService.list();
+        const users = await userService.list();
     
         return response.render("index", {
           users
@@ -18,7 +20,7 @@ class UsuarioController {
       }
       async listUserss(request: Request, response: Response) {
     
-        const users = await UsersService.list();
+        const users = await userService.list();
     
         return response.render("index", {
           users
@@ -30,7 +32,7 @@ class UsuarioController {
         const { username, email, Telefono, Ciudad, Estado } = request.body;
     
         try {
-          await UsersService.create({
+          await userService.create({
             username,
             email,
             Telefono,
@@ -57,7 +59,7 @@ class UsuarioController {
 
     
         try {
-          const users = await UsersService.search(search);
+          const users = await userService.search(search);
           response.render("search", {
             users,
             search
@@ -74,7 +76,7 @@ class UsuarioController {
         let { id } = request.query;
         id = id.toString();
     
-        const user = await UsersService.getData(id);
+        const user = await userService.getData(id);
     
         return response.render("edit", {
           user
@@ -86,7 +88,7 @@ class UsuarioController {
         const { id, username, email, Telefono, Ciudad, Estado } = request.body;
     
         try {
-          await UsersService.update({ id, username, email, Telefono, Ciudad, Estado }).then(() => {
+          await userService.update({ id, username, email, Telefono, Ciudad, Estado }).then(() => {
             response.render("message", {
               message: "Usuario actualizado"
             });
@@ -105,7 +107,7 @@ class UsuarioController {
       async deleteUser(request: Request, response: Response) {
         const { id } = request.body;
         try {
-          await UsersService.delete(id).then(() => {
+          await userService.delete(id).then(() => {
             
             response.render("message", {message: "Usuario eliminado"}) 
           });

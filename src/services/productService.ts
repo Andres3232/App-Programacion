@@ -42,7 +42,7 @@ class ProductService {
           throw new Error("Producto ya esta registrado");
         }
     
-        const product = productsRepository.create({ productname, price, type,category_id});
+        const product = productsRepository.create({ productname, price, type});
     
         await productsRepository.save(product);
     
@@ -86,7 +86,7 @@ class ProductService {
         const product = await productsRepository
           .createQueryBuilder()
           .update(Product)
-          .set({ productname, price, type, category_id })
+          .set({ productname, price, type })
           .where("id = :id", { id })
           .execute();
     
@@ -112,5 +112,5 @@ class ProductService {
 
 }
 
-
-export { ProductService };
+export const productService = new ProductService()
+export default { ProductService };

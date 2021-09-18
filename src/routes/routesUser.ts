@@ -21,8 +21,6 @@ router.get("/add", (request, response) => {
 
 router.get("/lista", usuarioController.listUsers)
 
-
-
 router.post("/add-user", usuarioController.createUser);
 
 router.get("/search",usuarioController.searchUser);
