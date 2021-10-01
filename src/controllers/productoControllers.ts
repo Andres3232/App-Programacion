@@ -20,7 +20,7 @@ class ProductController {
 
       //metodo para agregar usuario
       async createProduct(request: Request, response: Response) {
-        const { id, productname, price, type, category_id } = request.body;
+        const { id, productname, price, type, categoriaId } = request.body;
     
         try {
           await productService.create({
@@ -28,7 +28,7 @@ class ProductController {
             productname,
             price,
             type,
-            category_id
+            categoriaId
           }).then(() => {
             response.render("messageProducto", {
               message: "Producto creado con éxito"
@@ -74,11 +74,11 @@ class ProductController {
 
       //editar el usuario
       async updateProduct(request: Request, response: Response) {
-        const { id, productname, price, type, category_id } = request.body;
+        const { id, productname, price, type, categoriaId } = request.body;
 
     
         try {
-          await productService.update({ id, productname, price, type, category_id }).then(() => {
+          await productService.update({ id, productname, price, type, categoriaId }).then(() => {
             response.render("messageProducto", {
               message: "producto actualizado"
             });

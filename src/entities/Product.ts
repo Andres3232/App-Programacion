@@ -3,7 +3,7 @@ import { v4 as uuid } from "uuid";
 import { Category } from "./Category";
 
 @Entity("products")
-class Product {
+export class Product {
 
   @PrimaryColumn()
   id: string;
@@ -18,8 +18,11 @@ class Product {
   type: string;
 
   
-  @OneToMany(() => Category, category => category.producto)
-  categorias: Category[];
+  @ManyToOne(() => Category, category => category.productos)
+  categoria: Category;
+
+  @Column()
+  categoriaId: string;
 
   @CreateDateColumn()
   created_at: Date;
@@ -34,5 +37,3 @@ class Product {
   }
 
 }
-
-export { Product };

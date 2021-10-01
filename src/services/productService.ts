@@ -1,9 +1,10 @@
 import { getCustomRepository } from "typeorm";
 
 import { Product } from "../entities/Product";
-
+import { Category } from "../entities/Category";
 
 import {ProductsRepository} from "../repositories/ProductsRepository";
+import {CategoryRepository} from "../repositories/CategoriesRepository";
 
 
 interface IProduct{
@@ -12,7 +13,7 @@ interface IProduct{
     productname: string;
     price: number;
     type: string;
-    category_id: number;
+    categoriaId?: string;
     
 }
 
@@ -22,32 +23,34 @@ class ProductService {
   //listar productos
     async list() {
         const productsRepository = getCustomRepository(ProductsRepository);
-    
+
         const products = await productsRepository.find();
     
         return products;
       }
 
   //crear producto
-      async create({ productname, price, type, category_id }: IProduct) {
-        if (!productname || !price || !type || !category_id) {
-          throw new Error("Por favor escribe todo los campos");
-        }
-    
-        const productsRepository = getCustomRepository(ProductsRepository);
-    
-        const productnameAlreadyExists = await productsRepository.findOne({ productname });
-    
-        if (productnameAlreadyExists) {
-          throw new Error("Producto ya esta registrado");
-        }
-    
-        const product = productsRepository.create({ productname, price, type});
-    
-        await productsRepository.save(product);
-    
-        return product;
-      }
+  async create({ productname, price, type,categoriaId}: IProduct) {
+    if (!productname || !price || !type ||!categoriaId) {
+      throw new Error("Por favor escribe todo los campos");
+    }
+
+    const productsRepository = getCustomRepository(ProductsRepository);
+
+    const productnameAlreadyExists = await productsRepository.findOne({ productname });
+
+    if (productnameAlreadyExists) {
+      throw new Error("Producto ya esta registrado");
+    }
+
+    const product = productsRepository.create({ productname, price, type,categoriaId});
+    console.log('===============',product)
+    await productsRepository.save(product);
+
+    return product;
+  }
+
+  
 
   //buscar producto
       async search(search: string) {
@@ -80,13 +83,13 @@ class ProductService {
         return product;
       }
 
-      async update({ id, productname, price, type, category_id }: IProduct) {
+      async update({ id, productname, price, type,  }: IProduct) {
         const productsRepository = getCustomRepository(ProductsRepository);
     
         const product = await productsRepository
           .createQueryBuilder()
           .update(Product)
-          .set({ productname, price, type })
+          .set({ productname, price, type ,})
           .where("id = :id", { id })
           .execute();
     

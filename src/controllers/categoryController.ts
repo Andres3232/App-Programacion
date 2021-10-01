@@ -1,28 +1,23 @@
 import { Request, Response } from "express";
 
-import { CategoryService } from "../services/categoryService"
+import { categoryService } from "../services/categoryService"
 
 class CategoryController {
 
     //controlar al listar categorias
     async listCategories(request: Request, response: Response) {
-        const listCategoryService = new CategoryService();
+        
+      const category = await categoryService.listCategory();
     
-        const category = await listCategoryService.listCategory();
-    
-        return response.render("list-category", {
-          product: category
-        })
-      }
+      return response.render("lista-categoria",{category})
+    }
 
       //controlar la asignación de categoría
       async createCategory(request: Request, response: Response) {
         const { name} = request.body;
     
-        const createCategoryService = new CategoryService();
-    
         try {
-          await createCategoryService .createCategory({
+          await categoryService .createCategory({
             name
           }).then(() => {
             response.render("message", {
@@ -41,10 +36,8 @@ class CategoryController {
         let { search } = request.query;
         search = search.toString();
     
-        const searchCategoryService = new CategoryService();
-    
         try {
-          const categories = await searchCategoryService.searchCategory(search);
+          const categories = await categoryService.searchCategory(search);
           response.render("search", {
             categories: categories,
             search: search
@@ -61,12 +54,10 @@ class CategoryController {
         let { id } = request.query;
         id = id.toString();
     
-        const getCategoryDataService = new CategoryService();
-    
-        const category = await getCategoryDataService.getDataCategory(id);
+        const category = await categoryService.getDataCategory(id);
     
         return response.render("edit-category", {
-          category: category,
+          category,
         });
       }
 
@@ -74,10 +65,8 @@ class CategoryController {
       async updateCategory(request: Request, response: Response) {
         const { name } = request.body;
     
-        const updateCategoryService = new CategoryService();
-    
         try {
-          await updateCategoryService.updateCategory({name}).then(() => {
+          await categoryService.updateCategory({name}).then(() => {
             response.render("message", {
               message: "Categoría Actualizada"
             });
@@ -94,10 +83,8 @@ class CategoryController {
       async deleteCategory(request: Request, response: Response) {
         const { id } = request.body;
     
-        const deleteCategoryService = new CategoryService();
-    
         try {
-          await deleteCategoryService.deleteCategory(id).then(() => {
+          await categoryService.deleteCategory(id).then(() => {
             response.render("message", {
               message: "Categoría Eliminada"
             });

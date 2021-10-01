@@ -5,16 +5,16 @@ import { Product } from "./Product";
 
 @Entity('categories')
 
-class Category {
-  
+export class Category {
+
   @PrimaryColumn()
   id:string;
 
   @Column()
   name: string;
-
-  @ManyToOne(() => Product, product => product.categorias)
-  producto: Product;
+  
+  @OneToMany(() => Product, product => product.categoria)
+  productos: Product[];
 
   @CreateDateColumn()
   created_at:Date;
@@ -27,6 +27,4 @@ class Category {
       this.id = uuid();
     }
   }
-
 }
-export{Category};

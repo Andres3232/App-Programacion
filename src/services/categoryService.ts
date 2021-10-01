@@ -100,4 +100,5 @@ class CategoryService{
     };
 };
 
-export{CategoryService};
+export const categoryService = new CategoryService()
+export default {CategoryService}
