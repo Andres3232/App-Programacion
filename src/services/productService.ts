@@ -13,7 +13,7 @@ interface IProduct{
     productname: string;
     price: number;
     type: string;
-    categoriaId?: string;
+    categoriaId: string;
     
 }
 
@@ -25,13 +25,13 @@ class ProductService {
         const productsRepository = getCustomRepository(ProductsRepository);
 
         const products = await productsRepository.find();
-    
+        console.log(products)
         return products;
       }
 
   //crear producto
-  async create({ productname, price, type,categoriaId}: IProduct) {
-    if (!productname || !price || !type ||!categoriaId) {
+  async create({ productname, price, type,name}) {
+    if (!productname || !price || !type ||!name) {
       throw new Error("Por favor escribe todo los campos");
     }
 
@@ -42,15 +42,28 @@ class ProductService {
     if (productnameAlreadyExists) {
       throw new Error("Producto ya esta registrado");
     }
+    const categoryRepository = getCustomRepository(CategoryRepository);
+    
+    const categoria = await categoryRepository.findOne({name})
+    if (!categoria) {
+      throw new Error("No existe esa categoria");
+    }
+    console.log('===============',categoria)
+    
+    const newProduct = new Product()
+   
+    newProduct.productname = productname
+    newProduct.price = price
+    newProduct.type=type
+    //newProduct.categoriaId='emannuel culiado'
+    newProduct.categoria= categoria
+    
 
-    const product = productsRepository.create({ productname, price, type,categoriaId});
-    console.log('===============',product)
-    await productsRepository.save(product);
+    console.log('===============',newProduct)
+    await productsRepository.save(newProduct);
 
-    return product;
+    return newProduct;
   }
-
-  
 
   //buscar producto
       async search(search: string) {

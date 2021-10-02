@@ -25,19 +25,11 @@ export class CreateProducts1624747881677 implements MigrationInterface {
                         type: "varchar"
                     },
                     {
-                        name:"categoriaId",
-                        type: "int"
+                        name: "categoriaId",
+                        type: "varchar"
                     },
-                    {
-                        name: "created_at",
-                        type: "timestamp",
-                        default: "now()"
-                    },
-                    {
-                        name: "updated_at",
-                        type: "timestamp",
-                        default: "now()"
-                    }
+
+
                 ]
             })
         );

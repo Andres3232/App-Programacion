@@ -16,16 +16,7 @@ export class CreateCategories1624747881677 implements MigrationInterface {
                         name: "name",
                         type: "varchar"
                     },
-                    {
-                        name: "created_at",
-                        type: "timestamp",
-                        default: "now()"
-                    },
-                    {
-                        name: "updated_at",
-                        type: "timestamp",
-                        default: "now()"
-                    }
+
                 ]
             })
         );

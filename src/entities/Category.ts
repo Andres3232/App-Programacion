@@ -7,20 +7,15 @@ import { Product } from "./Product";
 
 export class Category {
 
-  @PrimaryColumn()
-  id:string;
-
   @Column()
+  id:string;
+  
+  @PrimaryColumn()
   name: string;
   
   @OneToMany(() => Product, product => product.categoria)
   productos: Product[];
 
-  @CreateDateColumn()
-  created_at:Date;
-
-  @UpdateDateColumn()
-  updated_at:Date;
 
   constructor() {
     if (!this.id) {

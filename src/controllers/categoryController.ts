@@ -9,7 +9,7 @@ class CategoryController {
         
       const category = await categoryService.listCategory();
     
-      return response.render("lista-categoria",{category})
+      return response.render('lista-categoria',{category})
     }
 
       //controlar la asignación de categoría

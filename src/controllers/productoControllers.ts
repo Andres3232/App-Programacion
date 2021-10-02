@@ -12,23 +12,23 @@ class ProductController {
     async listProducts(request: Request, response: Response) {
     
         const products = await productService.list();
-        return response.render("lista-producto",{
-          products
+        return response.render('lista-producto',
+          {products
         })
       }
 
 
       //metodo para agregar usuario
       async createProduct(request: Request, response: Response) {
-        const { id, productname, price, type, categoriaId } = request.body;
+        const { productname, price, type, name } = request.body;
     
         try {
           await productService.create({
-            id,
+            
             productname,
             price,
             type,
-            categoriaId
+            name
           }).then(() => {
             response.render("messageProducto", {
               message: "Producto creado con éxito"
