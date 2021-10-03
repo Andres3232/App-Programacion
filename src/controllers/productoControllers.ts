@@ -72,7 +72,7 @@ class ProductController {
         });
       }
 
-      //editar el usuario
+      //editar el producto
       async updateProduct(request: Request, response: Response) {
         const { id, productname, price, type, categoriaId } = request.body;
 

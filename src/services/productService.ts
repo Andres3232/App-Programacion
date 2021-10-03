@@ -79,7 +79,7 @@ class ProductService {
           .where("productname like :search", { search: `%${search}%` })
           .orWhere("price like :search", { search: `%${search}%` })
           .orWhere(" type :search", { search: `%${search}%` })
-          .orWhere(" category_id :search", { search: `%${search}%` })
+          .orWhere(" categoriaId :search", { search: `%${search}%` })
           .getMany();
     
         return product;
@@ -96,13 +96,13 @@ class ProductService {
         return product;
       }
 
-      async update({ id, productname, price, type,  }: IProduct) {
+      async update({ id, productname, price, type,categoriaId  }: IProduct) {
         const productsRepository = getCustomRepository(ProductsRepository);
     
         const product = await productsRepository
           .createQueryBuilder()
           .update(Product)
-          .set({ productname, price, type ,})
+          .set({ productname, price, type ,categoriaId})
           .where("id = :id", { id })
           .execute();
     

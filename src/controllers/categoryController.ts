@@ -20,12 +20,12 @@ class CategoryController {
           await categoryService .createCategory({
             name
           }).then(() => {
-            response.render("message", {
-              message: "Categoría Asignada"
+            response.render("messageCategoria", {
+              message: "Categoría Creada"
             });
           });
         } catch (err) {
-          response.render("message", {
+          response.render("messageCategoria", {
             message: `Error al asignar la categoría: ${err.message}`
           });
         }
@@ -67,12 +67,12 @@ class CategoryController {
     
         try {
           await categoryService.updateCategory({name}).then(() => {
-            response.render("message", {
+            response.render("messageCategoria", {
               message: "Categoría Actualizada"
             });
           });
         } catch (err) {
-          response.render("message", {
+          response.render("messageCategoria", {
             message: `Error al actualizar la categoría: ${err.message}`
           });
         }
@@ -85,12 +85,12 @@ class CategoryController {
     
         try {
           await categoryService.deleteCategory(id).then(() => {
-            response.render("message", {
+            response.render("messageCategoria", {
               message: "Categoría Eliminada"
             });
           });
         } catch (err) {
-          response.render("message", {
+          response.render("messageCategoria", {
             message: `Error al eliminar la categoría: ${err.message}`
           });
         }
