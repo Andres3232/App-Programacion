@@ -14,8 +14,7 @@ routerCategory.get("/lista-categoria",categoryController.listCategories)
 routerCategory.post("/add-categoria",categoryController.createCategory)
 
 routerCategory.get("/edit-categoria",categoryController.getCategoryData)
-
-routerCategory.post("/edit-categoria",categoryController.updateCategory)
+routerCategory.post("/edit-category",categoryController.updateCategory)
 
 routerCategory.post("/delete-categoria",categoryController.deleteCategory)
 

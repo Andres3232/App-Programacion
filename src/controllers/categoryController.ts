@@ -51,12 +51,13 @@ class CategoryController {
 
       //controlar la data de la categoría
       async getCategoryData(request: Request, response: Response) {
-        let { id } = request.query;
-        id = id.toString();
-    
-        const category = await categoryService.getDataCategory(id);
-    
-        return response.render("edit-category", {
+        let { name } = request.query;
+     
+        //@ts-ignore
+        const category = await categoryService.getDataCategory(name);
+       
+        
+        return response.render("edit-categoria", {
           category,
         });
       }

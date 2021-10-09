@@ -48,7 +48,7 @@ class ProductService {
     if (!categoria) {
       throw new Error("No existe esa categoria");
     }
-    console.log('===============',categoria)
+    
     
     const newProduct = new Product()
    
@@ -59,7 +59,7 @@ class ProductService {
     newProduct.categoria= categoria
     
 
-    console.log('===============',newProduct)
+   
     await productsRepository.save(newProduct);
 
     return newProduct;
