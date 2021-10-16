@@ -1,3 +1,11 @@
+Integrantes
+Andres, Murgo
+Emanuel, Cortinez
+Felipe, Banco
+Luciano, Pardo
+
+
+
 # CRUD Node.js
 CRUD made with Node.js, Express, TypeScript, TypeORM, EJS &amp; SQLite.
 
