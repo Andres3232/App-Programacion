@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { UsuarioController } from "../controllers/usuarioController";
 
-
+import { check } from "express-validator";
 
 
 
@@ -19,7 +19,7 @@ router.get("/add", (request, response) => {
   response.render("add");
 });
 
-router.get("/lista", usuarioController.listUsers)
+router.get("/lista",usuarioController.listUsers)
 
 router.post("/add-user", usuarioController.createUser);
 

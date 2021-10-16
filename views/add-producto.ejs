@@ -47,7 +47,7 @@
   <br>
   <div class="container">
     <div class="text-center">
-      <h2>Productos/h2>
+      <h2>Productos</h2>
     </div>
     <br>
     <form action="./add-producto" method="POST">
@@ -71,12 +71,15 @@
       <br>
       <div class="row">
         <div class="col-6">
-          <label for="category_id" class="form-label">categoria</label>
-          <input type="text" name="category_id" id="category_id" class="form-control">
-        </div>
-        <div class="col-6">
-          <label for="Estado" class="form-label">Estado</label>
-          
+          <label for="name" class="form-label">categoria</label>
+          <select name="name" id="name" class="form-select">
+            <option value="" selected disabled>Seleccione Categoria</option>
+            <% category.forEach(function(category){ %>
+              <option value="<%= category.name%>">
+                <%= category.name%>
+              </option>
+              <%})%>
+          </select>
         </div>
       </div>
       <br>

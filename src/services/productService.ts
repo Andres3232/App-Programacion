@@ -1,9 +1,10 @@
 import { getCustomRepository } from "typeorm";
 
 import { Product } from "../entities/Product";
-
+import { Category } from "../entities/Category";
 
 import {ProductsRepository} from "../repositories/ProductsRepository";
+import {CategoryRepository} from "../repositories/CategoriesRepository";
 
 
 interface IProduct{
@@ -12,7 +13,7 @@ interface IProduct{
     productname: string;
     price: number;
     type: string;
-    category_id: number;
+    categoriaId: string;
     
 }
 
@@ -22,32 +23,52 @@ class ProductService {
   //listar productos
     async list() {
         const productsRepository = getCustomRepository(ProductsRepository);
-    
+
         const products = await productsRepository.find();
-    
+      
         return products;
       }
 
   //crear producto
-      async create({ productname, price, type, category_id }: IProduct) {
-        if (!productname || !price || !type || !category_id) {
-          throw new Error("Por favor escribe todo los campos");
-        }
+  async create({ productname, price, type,name}) {
+    if (!productname || !price || !type ||!name) {
+      throw new Error("Por favor escribe todo los campos");
+    }
+
+    const productsRepository = getCustomRepository(ProductsRepository);
+
+    const productnameAlreadyExists = await productsRepository.findOne({ productname });
+
+    if (productnameAlreadyExists) {
+      throw new Error("Producto ya esta registrado");
+      
+
+    }
+    const categoryRepository = getCustomRepository(CategoryRepository);
     
-        const productsRepository = getCustomRepository(ProductsRepository);
+    const categoria = await categoryRepository.findOne({name})
+    if (!categoria) {
+      throw new Error("No existe esa categoria");
+    }
     
-        const productnameAlreadyExists = await productsRepository.findOne({ productname });
     
-        if (productnameAlreadyExists) {
-          throw new Error("Producto ya esta registrado");
-        }
+    const newProduct = new Product()
+   
+    newProduct.productname = productname
+    newProduct.price = price
+    newProduct.type=type
+    //@ts-ignore
+    newProduct.categoriaId=categoria.name
+    //newProduct.categoria= categoria.name
     
-        const product = productsRepository.create({ productname, price, type});
+    console.log(newProduct);
     
-        await productsRepository.save(product);
-    
-        return product;
-      }
+ 
+   
+    await productsRepository.save(newProduct);
+
+    return newProduct;
+  }
 
   //buscar producto
       async search(search: string) {
@@ -63,7 +84,7 @@ class ProductService {
           .where("productname like :search", { search: `%${search}%` })
           .orWhere("price like :search", { search: `%${search}%` })
           .orWhere(" type :search", { search: `%${search}%` })
-          .orWhere(" category_id :search", { search: `%${search}%` })
+          .orWhere(" categoriaId :search", { search: `%${search}%` })
           .getMany();
     
         return product;
@@ -80,13 +101,13 @@ class ProductService {
         return product;
       }
 
-      async update({ id, productname, price, type, category_id }: IProduct) {
+      async update({ id, productname, price, type,categoriaId  }: IProduct) {
         const productsRepository = getCustomRepository(ProductsRepository);
     
         const product = await productsRepository
           .createQueryBuilder()
           .update(Product)
-          .set({ productname, price, type })
+          .set({ productname, price, type ,categoriaId})
           .where("id = :id", { id })
           .execute();
     

@@ -1,9 +1,9 @@
-import { Column, CreateDateColumn,Entity, ManyToOne, OneToMany, PrimaryColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn,Entity, JoinColumn, ManyToOne, OneToMany, PrimaryColumn, UpdateDateColumn } from "typeorm";
 import { v4 as uuid } from "uuid";
 import { Category } from "./Category";
 
 @Entity("products")
-class Product {
+export class Product {
 
   @PrimaryColumn()
   id: string;
@@ -17,15 +17,16 @@ class Product {
   @Column()
   type: string;
 
+  @Column()
+  categoriaId: string;
+
+
+  @ManyToOne(() => Category, category => category.productos)
+  @JoinColumn({ name: 'categoriaId'})
   
-  @OneToMany(() => Category, category => category.producto)
-  categorias: Category[];
+  categoria: Category;
 
-  @CreateDateColumn()
-  created_at: Date;
 
-  @UpdateDateColumn()
-  updated_at: Date;
 
   constructor() {
     if (!this.id) {
@@ -34,5 +35,3 @@ class Product {
   }
 
 }
-
-export { Product };

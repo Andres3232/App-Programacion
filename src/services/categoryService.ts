@@ -57,11 +57,11 @@ class CategoryService{
 
 
     //Método para traer data categoria
-    async getDataCategory(id: string) {
+    async getDataCategory(name: string) {
     
         const categoriesRepository = getCustomRepository(CategoryRepository);  
 
-        const category = await categoriesRepository.findOne(id);
+        const category = await categoriesRepository.findOne(name);
     
         return category;
     };
@@ -100,4 +100,5 @@ class CategoryService{
     };
 };
 
-export{CategoryService};
+export const categoryService = new CategoryService()
+export default {CategoryService}

@@ -4,13 +4,12 @@ import express, { Request, Response, NextFunction } from "express";
 import path from "path";
 import { router } from "./routes/routesUser";
 import { routerProduct }   from "./routes/routesProduct";
+import { routerCategory }   from "./routes/routerCategory";
+import expressLayouts from "express-ejs-layouts"
 
 import "./database";
-//import router as userRouter  from "./routes/routesUser"
-//import  router as productRouter from "./routes/routesProduct"
 
 
-const expressLayouts= require('express-ejs-layouts')
 
 const app = express();
 
@@ -20,6 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 //RUTAS
 app.use(router);
 app.use(routerProduct);
+app.use(routerCategory);
 
 
 app.use((err: Error, request: Request, response: Response, next: NextFunction) => {
@@ -35,10 +35,13 @@ app.use((err: Error, request: Request, response: Response, next: NextFunction) =
   });
 });
 
+app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, "..", "public")));
 
 app.use(expressLayouts);
 app.set("view engine", "ejs");
+
+
 app.set("views", path.join(__dirname,  "../views"));
 
 app.listen(3000, () => {

@@ -1,36 +1,31 @@
 import { Request, Response } from "express";
 
-import { CategoryService } from "../services/categoryService"
+import { categoryService } from "../services/categoryService"
 
 class CategoryController {
 
     //controlar al listar categorias
     async listCategories(request: Request, response: Response) {
-        const listCategoryService = new CategoryService();
+        
+      const category = await categoryService.listCategory();
     
-        const category = await listCategoryService.listCategory();
-    
-        return response.render("list-category", {
-          product: category
-        })
-      }
+      return response.render('lista-categoria',{category})
+    }
 
       //controlar la asignación de categoría
       async createCategory(request: Request, response: Response) {
         const { name} = request.body;
     
-        const createCategoryService = new CategoryService();
-    
         try {
-          await createCategoryService .createCategory({
+          await categoryService .createCategory({
             name
           }).then(() => {
-            response.render("message", {
-              message: "Categoría Asignada"
+            response.render("messageCategoria", {
+              message: "Categoría Creada"
             });
           });
         } catch (err) {
-          response.render("message", {
+          response.render("messageCategoria", {
             message: `Error al asignar la categoría: ${err.message}`
           });
         }
@@ -41,10 +36,8 @@ class CategoryController {
         let { search } = request.query;
         search = search.toString();
     
-        const searchCategoryService = new CategoryService();
-    
         try {
-          const categories = await searchCategoryService.searchCategory(search);
+          const categories = await categoryService.searchCategory(search);
           response.render("search", {
             categories: categories,
             search: search
@@ -58,15 +51,14 @@ class CategoryController {
 
       //controlar la data de la categoría
       async getCategoryData(request: Request, response: Response) {
-        let { id } = request.query;
-        id = id.toString();
-    
-        const getCategoryDataService = new CategoryService();
-    
-        const category = await getCategoryDataService.getDataCategory(id);
-    
-        return response.render("edit-category", {
-          category: category,
+        let { name } = request.query;
+     
+        //@ts-ignore
+        const category = await categoryService.getDataCategory(name);
+       
+        
+        return response.render("edit-categoria", {
+          category,
         });
       }
 
@@ -74,16 +66,14 @@ class CategoryController {
       async updateCategory(request: Request, response: Response) {
         const { name } = request.body;
     
-        const updateCategoryService = new CategoryService();
-    
         try {
-          await updateCategoryService.updateCategory({name}).then(() => {
-            response.render("message", {
+          await categoryService.updateCategory({name}).then(() => {
+            response.render("messageCategoria", {
               message: "Categoría Actualizada"
             });
           });
         } catch (err) {
-          response.render("message", {
+          response.render("messageCategoria", {
             message: `Error al actualizar la categoría: ${err.message}`
           });
         }
@@ -94,16 +84,14 @@ class CategoryController {
       async deleteCategory(request: Request, response: Response) {
         const { id } = request.body;
     
-        const deleteCategoryService = new CategoryService();
-    
         try {
-          await deleteCategoryService.deleteCategory(id).then(() => {
-            response.render("message", {
+          await categoryService.deleteCategory(id).then(() => {
+            response.render("messageCategoria", {
               message: "Categoría Eliminada"
             });
           });
         } catch (err) {
-          response.render("message", {
+          response.render("messageCategoria", {
             message: `Error al eliminar la categoría: ${err.message}`
           });
         }
