@@ -1,6 +1,7 @@
 import { getCustomRepository } from "typeorm";
 import { User } from "../entities/User";
 import { UsersRepository } from "../repositories/UsersRepository";
+import { validate } from 'class-validator'
 
 
 
@@ -9,7 +10,7 @@ interface IUser {
     id?: string;
     username: string;
     email: string;
-    Telefono: string;
+    Telefono: number;
     Ciudad: string;
     Estado: string;
   }
@@ -28,10 +29,7 @@ class UsuarioService {
 
   //crear usuarios
       async create({ username, email, Telefono, Ciudad, Estado }: IUser) {
-        if (!username || !email || !Telefono || !Ciudad || !Estado) {
-          throw new Error("Por favor escribe todo los campos");
-        }
-    
+ 
         const usersRepository = getCustomRepository(UsersRepository);
     
         const usernameAlreadyExists = await usersRepository.findOne({ username });
@@ -46,11 +44,22 @@ class UsuarioService {
           throw new Error("Email ya esta registrado");
         }
     
+        
         const user = usersRepository.create({ username, email, Telefono, Ciudad, Estado });
+        const errors = await validate(user)
     
-        await usersRepository.save(user);
-    
-        return user;
+        
+        
+        if (errors.length===0) {
+          await usersRepository.save(user);
+          
+          return user;
+        }else{
+        //@ts-ignore
+          throw new Error( errors);
+          
+        }
+        
       }
 
   //buscar usuarios

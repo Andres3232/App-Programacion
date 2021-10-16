@@ -6,11 +6,11 @@ import { Product } from "./Product";
 @Entity('categories')
 
 export class Category {
-
-  @Column()
-  id:string;
   
   @PrimaryColumn()
+  id:string;
+  
+  @Column()
   name: string;
   
   @OneToMany(() => Product, product => product.categoria)

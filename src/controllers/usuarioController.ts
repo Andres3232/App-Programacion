@@ -18,19 +18,12 @@ class UsuarioController {
           users
         });
       }
-      async listUserss(request: Request, response: Response) {
-    
-        const users = await userService.list();
-    
-        return response.render("index", {
-          users
-        });
-      }
 
       //metodo para agregar usuario
       async createUser(request: Request, response: Response) {
-        const { username, email, Telefono, Ciudad, Estado } = request.body;
-    
+        let { username, email, Telefono, Ciudad, Estado } = request.body;
+        Telefono = parseInt(Telefono)
+
         try {
           await userService.create({
             username,
@@ -39,7 +32,7 @@ class UsuarioController {
             Ciudad,
             Estado
           }).then(() => {
-        
+            
             response.render("message", {
               message: "Usuario creado con exito"
             });

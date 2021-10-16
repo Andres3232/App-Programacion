@@ -1,5 +1,7 @@
 import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from "typeorm";
 import { v4 as uuid } from "uuid";
+import { IsEmail, IsInt, IsNotEmpty, IsString } from 'class-validator'
+
 
 @Entity("users")
 class User {
@@ -8,18 +10,28 @@ class User {
   id: string;
 
   @Column()
+  @IsNotEmpty()
+  @IsString()
   username: string;
 
   @Column()
+  @IsEmail()
+  @IsNotEmpty()
   email: string;
 
   @Column()
-  Telefono: string;
+  @IsNotEmpty()
+  @IsInt()
+  Telefono: number;
 
   @Column()
+  @IsString()
+  @IsNotEmpty()
   Ciudad: string;
 
   @Column()
+  @IsString()
+  @IsNotEmpty()
   Estado: string;
 
   @CreateDateColumn()

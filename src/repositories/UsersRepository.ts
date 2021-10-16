@@ -5,7 +5,6 @@ import { User } from "../entities/User";
 class UsersRepository extends Repository<User>{ }
 
 
-
 export { UsersRepository };
 
 

@@ -72,7 +72,14 @@
       <div class="row">
         <div class="col-6">
           <label for="name" class="form-label">categoria</label>
-          <input type="text" name="name" id="name" class="form-control">
+          <select name="name" id="name" class="form-select">
+            <option value="" selected disabled>Seleccione Categoria</option>
+            <% category.forEach(function(category){ %>
+              <option value="<%= category.name%>">
+                <%= category.name%>
+              </option>
+              <%})%>
+          </select>
         </div>
       </div>
       <br>

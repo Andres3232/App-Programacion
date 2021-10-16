@@ -25,7 +25,7 @@ class ProductService {
         const productsRepository = getCustomRepository(ProductsRepository);
 
         const products = await productsRepository.find();
-        console.log(products)
+      
         return products;
       }
 
@@ -41,6 +41,8 @@ class ProductService {
 
     if (productnameAlreadyExists) {
       throw new Error("Producto ya esta registrado");
+      
+
     }
     const categoryRepository = getCustomRepository(CategoryRepository);
     
@@ -55,10 +57,13 @@ class ProductService {
     newProduct.productname = productname
     newProduct.price = price
     newProduct.type=type
-    //newProduct.categoriaId='emannuel culiado'
-    newProduct.categoria= categoria
+    //@ts-ignore
+    newProduct.categoriaId=categoria.name
+    //newProduct.categoria= categoria.name
     
-
+    console.log(newProduct);
+    
+ 
    
     await productsRepository.save(newProduct);
 

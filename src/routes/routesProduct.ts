@@ -10,9 +10,7 @@ const routerProduct = Router();
 
 const productoController = new ProductController()
 
-routerProduct.get("/add-producto", (request, response) => {
-    response.render("add-producto");
-});
+routerProduct.get("/add-producto", productoController.searchCategory);
 
 
 routerProduct.get("/lista-producto", productoController.listProducts)

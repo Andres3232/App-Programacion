@@ -1,5 +1,5 @@
 function counter() {
-  let countdown = 5;
+  let countdown = 15;
 
   let timerDiv = document.getElementById("timer");
 
@@ -13,13 +13,13 @@ function counter() {
   }, 1000);
 }
 function counterProducto() {
-  let countdown = 5;
+  let countdown = 0;
 
   let timerDiv = document.getElementById("timer");
 
   let timer = setInterval(function () {
     timerDiv.innerHTML = `Volviendo al Home en... ${countdown}`;
-    countdown--;
+    
     if (countdown === 0) {
       clearInterval(timer);
       window.location.href = "./lista-producto"

@@ -3,6 +3,8 @@ import { Request, Response } from "express";
 
 import { productService } from "../services/productService";
 
+import { categoryService } from '../services/categoryService';
+
 
 
 
@@ -21,7 +23,9 @@ class ProductController {
       //metodo para agregar usuario
       async createProduct(request: Request, response: Response) {
         const { productname, price, type, name } = request.body;
-    
+      
+        console.log(request.body);
+        
         try {
           await productService.create({
             
@@ -30,16 +34,26 @@ class ProductController {
             type,
             name
           }).then(() => {
+            
             response.render("messageProducto", {
-              message: "Producto creado con éxito"
+              message: "Producto creado con éxito",
             });
           });
         } catch (err) {
+          
           response.render("messageProducto", {
             message: `Error al crear el producto: ${err.message}`
           });
         }
     
+      }
+
+      //metodo para listar las cateegorias al momento de crear un producto
+
+      async searchCategory(request: Request,response: Response){
+        const category = await categoryService.listCategory();
+    
+        return response.render('add-producto',{category})
       }
 
       //metodo para buscar Product
