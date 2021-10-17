@@ -2,6 +2,7 @@ import { getCustomRepository } from "typeorm";
 
 import { Product } from "../entities/Product";
 import { Category } from "../entities/Category";
+import { validate } from 'class-validator'
 
 import {ProductsRepository} from "../repositories/ProductsRepository";
 import {CategoryRepository} from "../repositories/CategoriesRepository";
@@ -31,9 +32,9 @@ class ProductService {
 
   //crear producto
   async create({ productname, price, type,name}) {
-    if (!productname || !price || !type ||!name) {
-      throw new Error("Por favor escribe todo los campos");
-    }
+    // if (!productname || !price || !type ||!name) {
+    //   throw new Error("Por favor escribe todo los campos");
+    // }
 
     const productsRepository = getCustomRepository(ProductsRepository);
 
@@ -60,14 +61,20 @@ class ProductService {
     //@ts-ignore
     newProduct.categoriaId=categoria.name
     //newProduct.categoria= categoria.name
-    
-    console.log(newProduct);
-    
- 
+  
+    const errors = await validate(newProduct)
+   console.log(errors);
    
-    await productsRepository.save(newProduct);
+    if (errors.length===0) {
+      await productsRepository.save(newProduct);
+  
+      return newProduct;
+      
+    }else{
+        //@ts-ignore
+      throw new Error( errors);
 
-    return newProduct;
+    }
   }
 
   //buscar producto

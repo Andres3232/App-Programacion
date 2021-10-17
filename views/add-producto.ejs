@@ -54,25 +54,25 @@
       <div class="row">
         <div class="col-12">
           <label for="productname" class="form-label">Nombre producto</label>
-          <input type="text" name="productname" id="productname" class="form-control">
+          <input type="text" name="productname" id="productname" class="form-control" required>
         </div>
       </div>
       <br>
       <div class="row">
         <div class="col-6">
           <label for="price" class="form-label">Precio</label>
-          <input type="text" name="price" id="price" class="form-control">
+          <input type="number" name="price" id="price" class="form-control" required>
         </div>
         <div class="col-6">
           <label for="type" class="form-label">tipo</label>
-          <input type="text" name="type" id="type" class="form-control">
+          <input type="text" name="type" id="type" class="form-control" required>
         </div>
       </div>
       <br>
       <div class="row">
         <div class="col-6">
           <label for="name" class="form-label">categoria</label>
-          <select name="name" id="name" class="form-select">
+          <select name="name" id="name" class="form-select" required>
             <option value="" selected disabled>Seleccione Categoria</option>
             <% category.forEach(function(category){ %>
               <option value="<%= category.name%>">

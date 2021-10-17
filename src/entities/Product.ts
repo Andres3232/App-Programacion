@@ -1,6 +1,8 @@
 import { Column, CreateDateColumn,Entity, JoinColumn, ManyToOne, OneToMany, PrimaryColumn, UpdateDateColumn } from "typeorm";
 import { v4 as uuid } from "uuid";
 import { Category } from "./Category";
+import { IsEmail, IsInt, IsNotEmpty, IsString } from 'class-validator'
+
 
 @Entity("products")
 export class Product {
@@ -9,12 +11,18 @@ export class Product {
   id: string;
 
   @Column()
+  @IsNotEmpty()
+  @IsString()
   productname: string;
 
   @Column()
+  @IsInt()
+  @IsNotEmpty()
   price: number;
 
   @Column()
+  @IsString()
+  @IsNotEmpty()
   type: string;
 
   @Column()
