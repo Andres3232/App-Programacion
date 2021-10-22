@@ -1,19 +1,12 @@
 import { Router } from "express";
 import { UsuarioController } from "../controllers/usuarioController";
 
-import { check } from "express-validator";
-
-
-
 
 const router = Router();
 
-
 const usuarioController = new UsuarioController();
 
-router.get("/",(request, response) => {
-  response.render("home");
-});
+
 
 router.get("/add", (request, response) => {
   response.render("add");

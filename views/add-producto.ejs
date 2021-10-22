@@ -28,13 +28,16 @@
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="./">home</a>
+            <a class="nav-link active" aria-current="page" href="./">Home</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="./lista">lista usuario</a>
+            <a class="nav-link active" aria-current="page" href="./lista">Lista Usuario</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="./lista-producto">lista producto</a>
+            <a class="nav-link active" aria-current="page" href="./lista-producto">Lista Producto</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="./lista-categoria">Lista Categoria</a>
           </li>
         </ul>
         <form class="d-flex" action="./search" method="GET">
@@ -45,6 +48,8 @@
     </div>
   </nav>
   <br>
+
+  <br>
   <div class="container">
     <div class="text-center">
       <h2>Productos</h2>
@@ -54,25 +59,25 @@
       <div class="row">
         <div class="col-12">
           <label for="productname" class="form-label">Nombre producto</label>
-          <input type="text" name="productname" id="productname" class="form-control" required>
+          <input type="text" name="productname" id="productname" class="form-control">
         </div>
       </div>
       <br>
       <div class="row">
         <div class="col-6">
           <label for="price" class="form-label">Precio</label>
-          <input type="number" name="price" id="price" class="form-control" required>
+          <input type="text" name="price" id="price" class="form-control">
         </div>
         <div class="col-6">
           <label for="type" class="form-label">tipo</label>
-          <input type="text" name="type" id="type" class="form-control" required>
+          <input type="text" name="type" id="type" class="form-control">
         </div>
       </div>
       <br>
       <div class="row">
         <div class="col-6">
           <label for="name" class="form-label">categoria</label>
-          <select name="name" id="name" class="form-select" required>
+          <select name="name" id="name" class="form-select">
             <option value="" selected disabled>Seleccione Categoria</option>
             <% category.forEach(function(category){ %>
               <option value="<%= category.name%>">

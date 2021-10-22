@@ -1,6 +1,6 @@
 import { Column, CreateDateColumn, Entity, PrimaryColumn, UpdateDateColumn } from "typeorm";
 import { v4 as uuid } from "uuid";
-import { IsEmail, IsInt, IsNotEmpty, IsString } from 'class-validator'
+import { IsAlphanumeric, IsEmail, IsInt, IsNotEmpty, IsString } from 'class-validator'
 
 
 @Entity("users")
@@ -33,6 +33,16 @@ class User {
   @IsString()
   @IsNotEmpty()
   Estado: string;
+
+  @Column()
+  @IsString()
+  @IsNotEmpty()
+  Rol: string;
+
+  @Column()
+  @IsNotEmpty()
+  Password: string;
+
 
   @CreateDateColumn()
   created_at: Date;

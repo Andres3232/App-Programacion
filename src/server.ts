@@ -1,3 +1,4 @@
+import "./database";
 import "reflect-metadata";
 import "express-async-errors";
 import express, { Request, Response, NextFunction } from "express";
@@ -5,9 +6,11 @@ import path from "path";
 import { router } from "./routes/routesUser";
 import { routerProduct }   from "./routes/routesProduct";
 import { routerCategory }   from "./routes/routerCategory";
+import { routerLogin } from "./routes/auth";
 import expressLayouts from "express-ejs-layouts"
+import session from "express-session";
+import passport from "passport";
 
-import "./database";
 
 
 
@@ -39,10 +42,13 @@ app.use(express.static('public'));
 app.use(express.static(path.join(__dirname, "..", "public")));
 
 app.use(expressLayouts);
+
 app.set("view engine", "ejs");
-
-
 app.set("views", path.join(__dirname,  "../views"));
+
+
+
+app.use(routerLogin)
 
 app.listen(3000, () => {
   console.log("Server is running at port 3000");
