@@ -1,5 +1,7 @@
 import { Router } from "express";
 import { UsuarioController } from "../controllers/usuarioController";
+import { validarJWT } from '../middlewares/validar-jwt';
+import { esAdminRole } from '../middlewares/validar-roles';
 
 
 const router = Router();
@@ -22,6 +24,8 @@ router.get("/edit", usuarioController.getUserData);
 
 router.post("/edit-user", usuarioController.updateUser);
 
-router.post("/delete-user", usuarioController.deleteUser);
+router.post("/delete-user",validarJWT,esAdminRole, usuarioController.deleteUser);
+router.delete("/delete-user/:id",validarJWT,esAdminRole, usuarioController.deleteUser);
+
 
 export { router };

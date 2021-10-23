@@ -8,8 +8,7 @@ import { routerProduct }   from "./routes/routesProduct";
 import { routerCategory }   from "./routes/routerCategory";
 import { routerLogin } from "./routes/auth";
 import expressLayouts from "express-ejs-layouts"
-import session from "express-session";
-import passport from "passport";
+
 
 
 
