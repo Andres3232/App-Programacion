@@ -2,10 +2,7 @@
 import { Request, Response } from "express";
 
 import { userService } from "../services/usuarioService"
-
-
-
-
+ import bcryptjs from 'bcryptjs'
 
 class UsuarioController {
      
@@ -21,16 +18,21 @@ class UsuarioController {
 
       //metodo para agregar usuario
       async createUser(request: Request, response: Response) {
-        let { username, email, Telefono, Ciudad, Estado } = request.body;
+        let { username, email, Telefono, Ciudad, Estado, Rol, Password } = request.body;
         Telefono = parseInt(Telefono)
 
+        const salt = bcryptjs.genSaltSync();
+        Password = bcryptjs.hashSync( Password, salt );
+       
         try {
           await userService.create({
             username,
             email,
             Telefono,
             Ciudad,
-            Estado
+            Estado,
+            Rol,
+            Password
           }).then(() => {
             
             response.render("message", {
@@ -78,10 +80,10 @@ class UsuarioController {
 
       //editar el usuario
       async updateUser(request: Request, response: Response) {
-        const { id, username, email, Telefono, Ciudad, Estado } = request.body;
+        const { id, username, email, Telefono, Ciudad, Estado, Rol, Password } = request.body;
     
         try {
-          await userService.update({ id, username, email, Telefono, Ciudad, Estado }).then(() => {
+          await userService.update({ id, username, email, Telefono, Ciudad, Estado, Rol, Password}).then(() => {
             response.render("message", {
               message: "Usuario actualizado"
             });

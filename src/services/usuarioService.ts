@@ -13,6 +13,8 @@ interface IUser {
     Telefono: number;
     Ciudad: string;
     Estado: string;
+    Rol: string;
+    Password: string
   }
 
 
@@ -28,7 +30,7 @@ class UsuarioService {
       }
 
   //crear usuarios
-      async create({ username, email, Telefono, Ciudad, Estado }: IUser) {
+      async create({ username, email, Telefono, Ciudad, Estado, Rol, Password }: IUser) {
  
         const usersRepository = getCustomRepository(UsersRepository);
     
@@ -45,7 +47,7 @@ class UsuarioService {
         }
     
         
-        const user = usersRepository.create({ username, email, Telefono, Ciudad, Estado });
+        const user = usersRepository.create({ username, email, Telefono, Ciudad, Estado, Rol, Password });
         const errors = await validate(user)
     
         
@@ -65,7 +67,7 @@ class UsuarioService {
   //buscar usuarios
       async search(search: string) {
         if (!search) {
-          throw new Error("Por favor preencha o campo de busca");
+          throw new Error("Por favor completa todos los campos");
         }
     
         const usersRepository = getCustomRepository(UsersRepository);
@@ -93,13 +95,13 @@ class UsuarioService {
         return user;
       }
 
-      async update({ id, username, email, Telefono, Ciudad, Estado }: IUser) {
+      async update({ id, username, email, Telefono, Ciudad, Estado, Rol, Password }: IUser) {
         const usersRepository = getCustomRepository(UsersRepository);
     
         const user = await usersRepository
           .createQueryBuilder()
           .update(User)
-          .set({ username, email, Telefono, Ciudad, Estado })
+          .set({ username, email, Telefono, Ciudad, Estado, Rol, Password })
           .where("id = :id", { id })
           .execute();
     

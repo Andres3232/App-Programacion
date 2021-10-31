@@ -22,9 +22,10 @@ class ProductController {
 
       //metodo para agregar usuario
       async createProduct(request: Request, response: Response) {
-        const { productname, price, type, name } = request.body;
+        let { productname, price, type, name } = request.body;
+        price = parseInt(price)
       
-        console.log(request.body);
+        
         
         try {
           await productService.create({
