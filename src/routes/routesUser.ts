@@ -10,19 +10,19 @@ const usuarioController = new UsuarioController();
 
 
 
-router.get("/add", (request, response) => {
+router.get("/add",validarJWT,esAdminRole, (request, response) => {
   response.render("add");
 });
 
 router.get("/lista",usuarioController.listUsers)
 
-router.post("/add-user", usuarioController.createUser);
+router.post("/add-user",validarJWT,esAdminRole, usuarioController.createUser);
 
 router.get("/search",usuarioController.searchUser);
 
-router.get("/edit", usuarioController.getUserData);
+router.get("/edit", validarJWT,esAdminRole,usuarioController.getUserData);
 
-router.post("/edit-user", usuarioController.updateUser);
+router.post("/edit-user",validarJWT,esAdminRole, usuarioController.updateUser);
 
 router.post("/delete-user",validarJWT,esAdminRole, usuarioController.deleteUser);
 router.delete("/delete-user/:id",validarJWT,esAdminRole, usuarioController.deleteUser);

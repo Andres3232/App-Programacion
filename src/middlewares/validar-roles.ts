@@ -12,9 +12,8 @@ export const esAdminRole = (req, res,next ) => {
     const { Rol, username } = req.usuario;
 
     if( Rol !== 'admin' ){
-        return res.status(401).json({
-            msg: `${ username } no es administrador-No puede hacer esto`
-        });
+        return res.render("noadmin");
+       
     }
 
     next()

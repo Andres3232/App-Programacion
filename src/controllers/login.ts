@@ -18,30 +18,20 @@ export const login = async(req, res,) => {
     const usersRepository = getCustomRepository(UsersRepository);
 
     try {
-      
-        // Verificar si el email existe
-        
+        // Verificar si el usuario existe
         const usuario = await usersRepository.findOne({username})
         
-        
         if ( !usuario ) {
-            return res.status(400).json({
-                msg: 'Usuario  no es correcto o no existe '
-            });
+            return res.render("Incorrecto");
         }
-
-
         // Verificar la contraseña
-
-          let passwordString = password.toString()
-    
+        let passwordString = password.toString()
         
         const validPassword = bcryptjs.compareSync( passwordString, usuario.Password );
         
         if ( !validPassword ) {
-            return res.status(400).json({
-                msg: 'Password no son correctos - password'
-            });
+            return res.render("Incorrecto");
+            ;
         }
 
         // Generar el JWT
@@ -49,13 +39,9 @@ export const login = async(req, res,) => {
         
        //guardarlo en el local starage
         localStorage.setItem('x-token',JSON.stringify(token))
-
-
         
         const users = await userService.list();
-        
-        
-    
+            
         return res.render("index", {
             usuario,
             token,
@@ -69,3 +55,34 @@ export const login = async(req, res,) => {
         });
     }   
 }
+
+
+export  const signup = async(request,response) => {
+    let { username, email, Telefono, Ciudad, Estado, Rol, Password } = request.body;
+    Telefono = parseInt(Telefono)
+
+    const salt = bcryptjs.genSaltSync();
+   
+    Password = bcryptjs.hashSync( Password, salt );
+
+    try {
+        await userService.create({
+          username,
+          email,
+          Telefono,
+          Ciudad,
+          Estado,
+          Rol,
+          Password
+        }).then(() => {
+          response.render("messageSignup", {
+            message: "Usuario creado con exito"
+          });
+        });
+      } catch (err) {
+        response.render("messageSignup", {
+          message: `Error al crear el usuario: ${err.message}`
+        });
+      }
+}
+

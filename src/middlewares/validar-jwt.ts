@@ -8,18 +8,22 @@ const localStorage = new LocalStorage('./scratch');
 
 export const validarJWT = async ( req, res, next ) => {
 
+    try {
     let token = JSON.parse(localStorage.getItem('x-token'))
+        
+        
 
     const usersRepository = getCustomRepository(UsersRepository);
     
-
+ 
+    
     if( !token ) {
         return res.status(401).json({
             msg: 'No hay token en la peticion'
         });
     }
 
-    try {
+
 
         const { id } = jwt.verify( token, '123');
 
@@ -39,9 +43,7 @@ export const validarJWT = async ( req, res, next ) => {
         
     } catch (error) {
         console.log(error);
-        res.status(401).json({
-            msg: 'Token no valido'
-        })
+        res.status(401).render("logueate")
     }
 
 

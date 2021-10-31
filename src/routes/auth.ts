@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { login } from "../controllers/login";
+import { login, signup } from "../controllers/login";
 
 
 
@@ -9,8 +9,15 @@ routerLogin.get("/",(request, response) => {
     response.render("home");
   });
 
-
 routerLogin.post('/login',login)
+routerLogin.get("/signup", (request, response) => {
+  response.render("signup");
+});
+
+
+routerLogin.post("/signup", signup);
+
+
 
 
 export { routerLogin };
