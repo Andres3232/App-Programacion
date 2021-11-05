@@ -11,10 +11,11 @@
       <thead>
         <th scope="col">Username</th>
         <th scope="col">Email</th>
-        <th scope="col">Telefono</th>
+        <th scope="col">Teléfono</th>
         <th scope="col">Ciudad</th>
         <th scope="col">Estado</th>
-        <th scope="col">Creacion</th>
+        <th scope="col">Rol</th>
+        <th scope="col">Creación</th>
         <th scope="col">Actualizar</th>
         <th scope="col">Estado</th>
       </thead>
@@ -36,6 +37,9 @@
             </td>
             <td>
               <%= user.Estado %>
+            </td>
+            <td>
+              <%= user.Rol %>
             </td>
             <td>
               <%= user.created_at.toLocaleDateString() %>
@@ -69,7 +73,7 @@
     <br>
     <br>
     <div class="float-start">
-      <a href="./add" class="btn primary-btn">Agregar usuario</a>
+      <a href="./add" class="btn primary-btn">Agregar Usuario</a>
     </div>
   </div>
   <%-include ('./partials/footer'); %>

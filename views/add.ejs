@@ -28,6 +28,7 @@
       <div class="row">
         <div class="col-6">
           <label for="Ciudad" class="form-label">Ciudad</label>
+          <br>
           <input type="text" required name="Ciudad" id="Ciudad" class="form-control">
         </div>
         <div class="col-6">
@@ -63,24 +64,38 @@
       <div class="row">
         <div class="col-6">
           <label for="Rol" class="form-label">Rol</label>
-          <input type="text"required name="Rol" id="Rol" class="form-control">
+          <select name="Rol" required id="Rol" class="form-select">
+            <option value="" selected disabled>Seleccione su Rol</option>
+            <option value="User">Cliente</option>
+          </select>
         </div>
-        <div class="row">
-          <div class="col-6">
-            <label for="password" class="form-label">Password</label>
-            <input type="password"required name="Password" id="Password" class="form-control">
-          </div>
-          <div class="row">
-            <div class="col-6">
-              <label for="password" class="form-label">Escriba la Contraseña Nuevamente</label>
-              <input type="password"required name="Password2" id="Password" class="form-control">
-            </div>
+      </div>
+      <br>
+      <div id="msg-pass">
+        
+        <div id="ok-pass">
+            
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-6">
+          <label for="Password" class="form-label">Contraseña</label>
+          <input type="password" placeholder="••••••••"  required name= "Password" id="Password" class="form-control">
+        </div>
+          
+     <!--  <div class="row">
+        <div class="col-6">
+          <br>
+          <label for="password" class="form-label">Escriba la Contraseña Nuevamente</label>
+          <input type="password" placeholder="••••••••" required name= "password" id="password" class="form-control">
+        </div>
+      </div> -->
       <br>
       <div class="row">
         <div class="col-6">
           <div class="float-start">
             <br>
-            <button type="submit" class="btn primary-btn">Agregar usuario</button>
+            <button type="submit" class="btn primary-btn">Agregar Usuario</button>
           </div>
         </div>
         <div class="col-6">
@@ -90,6 +105,30 @@
         </div>
       </div>
     </form>
+   <!--  <script>
+      function verificarPassword() {
+          password1 = document.getElementById('password1');
+          password2 = document.getElementById('password2');
+
+          if (password1.value != password2.value){
+              //Muestra que las contraseñas no coinciden
+              document.getElementById("error-pass").classList.add("mostrar");
+              return false;
+            
+          }else{
+
+            document.getElementById("error-pass").classList.remove("mostrar");
+            document.getElementById("ok-pass").classList.remove("ocultar");
+            setTimeout(function() {
+              location.reload();
+            },3000);
+
+            return true;
+
+          }
+      
+      } -->
+  </script>
   </div>
   <%-include ('./partials/footer'); %>
 
