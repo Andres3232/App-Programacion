@@ -32,12 +32,16 @@
           <input type="text" name="Ciudad" id="Ciudad" class="form-control" value="<%= user.Ciudad %>">
         </div>
         <div class="col-6">
+          <label for="Rol" class="form-label">Rol</label>
+          <input type="text" name="Rol" id="Rol" class="form-control" value="<%= user.Rol %>">
+        </div>
+        <div class="col-6">
           <label for="Estado" class="form-label">Estado</label>
           <select name="Estado" id="Estado" class="form-select">
             <option value="<%= user.Estado %>" selected>
               <%= user.Estado %>
             </option>
-            <option value="" selected disabled>Seleccione su Estado</option>
+            <option value="<%= user.Estado %>"</option>
             <option value="BS">Buenos aires</option>
             <option value="CA">Capital federal</option>
             <option value="CT">Catamarca</option>
@@ -80,4 +84,3 @@
     </form>
   </div>
   <%-include ('./partials/footer'); %>
-  

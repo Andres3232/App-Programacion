@@ -1,4 +1,3 @@
-
 import { Request, Response } from "express";
 
 import { userService } from "../services/usuarioService"
@@ -80,10 +79,10 @@ class UsuarioController {
 
       //editar el usuario
       async updateUser(request: Request, response: Response) {
-        const { id, username, email, Telefono, Ciudad, Estado, Rol, Password } = request.body;
+        const { id, username, email, Telefono, Ciudad, Estado, Rol } = request.body;
     
         try {
-          await userService.update({ id, username, email, Telefono, Ciudad, Estado, Rol, Password}).then(() => {
+          await userService.update({ id, username, email, Telefono, Ciudad, Estado, Rol}).then(() => {
             response.render("message", {
               message: "Usuario actualizado"
             });

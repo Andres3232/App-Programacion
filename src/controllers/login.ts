@@ -1,4 +1,3 @@
-
 import { UsersRepository } from "../repositories/UsersRepository";
 import { getCustomRepository } from "typeorm";
 import bcryptjs from 'bcryptjs'
@@ -58,8 +57,9 @@ export const login = async(req, res,) => {
 
 
 export  const signup = async(request,response) => {
-    let { username, email, Telefono, Ciudad, Estado, Rol, Password } = request.body;
+    let { username, email, Telefono, Ciudad, Estado, Password } = request.body;
     Telefono = parseInt(Telefono)
+    const Rol= "User"
 
     const salt = bcryptjs.genSaltSync();
    
@@ -85,4 +85,3 @@ export  const signup = async(request,response) => {
         });
       }
 }
-
