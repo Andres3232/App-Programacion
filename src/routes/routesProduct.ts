@@ -18,8 +18,10 @@ routerProduct.get("/lista-producto",productoController.listProducts)
 
 routerProduct.post("/add-producto",validarJWT,esAdminRole,productoController.createProduct)
 
+routerProduct.get("/search-producto",productoController.searchProduct);
 
 routerProduct.get("/edit-producto",validarJWT,esAdminRole,productoController.getProductData)
+
 routerProduct.post("/edit-product",validarJWT,esAdminRole,productoController.updateProduct)
 
 routerProduct.post("/delete-producto",validarJWT,esAdminRole,productoController.deleteProduct)

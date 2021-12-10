@@ -10,13 +10,13 @@ const usuarioController = new UsuarioController();
 
 
 
-router.get("/add",validarJWT,esAdminRole, (request, response) => {
+router.get("/add", (request, response) => {
   response.render("add");
 });
 
 router.get("/lista",usuarioController.listUsers)
 
-router.post("/add-user",validarJWT,esAdminRole, usuarioController.createUser);
+router.post("/add-user", usuarioController.createUser);
 
 router.get("/search",usuarioController.searchUser);
 

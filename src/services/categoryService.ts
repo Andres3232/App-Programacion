@@ -62,7 +62,7 @@ class CategoryService{
         const categoriesRepository = getCustomRepository(CategoryRepository);  
 
         const category = await categoriesRepository.findOne(id);
-        console.log('servicio',id);
+        
         
         return category;
     };
@@ -70,6 +70,7 @@ class CategoryService{
     //Método para actualizar categoria
     async updateCategory({name,id}: ICategory) {
 
+       
       const categoriesRepository = getCustomRepository(CategoryRepository);
     
       const category = await categoriesRepository
@@ -78,6 +79,7 @@ class CategoryService{
         .set({ name })
         .where("id = :id", { id })
         .execute();
+    
     
       return category;
     

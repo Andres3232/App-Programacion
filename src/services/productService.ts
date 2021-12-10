@@ -82,20 +82,19 @@ class ProductService {
         if (!search) {
           throw new Error("Por favor complete el campo de busca");
         }
-    
+
         const productsRepository = getCustomRepository(ProductsRepository);
-    
-        
+
         const product = await productsRepository
-          .createQueryBuilder()
-          .where("productname like :search", { search: `%${search}%` })
-          .orWhere("price like :search", { search: `%${search}%` })
-          .orWhere(" type :search", { search: `%${search}%` })
-          .orWhere(" categoriaId :search", { search: `%${search}%` })
-          .getMany();
-    
+        .createQueryBuilder()
+        .where("productname like :search", { search: `%${search}%` })
+        .orWhere("price like :search", { search: `%${search}%` })
+        .orWhere("type :search", { search: `%${search}%` })
+        .orWhere("categoriaId :search", { search: `%${search}%` })
+        .getMany();
+        
         return product;
-    
+        
       }
 
 

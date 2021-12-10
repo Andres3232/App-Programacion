@@ -54,12 +54,12 @@ class CategoryController {
         let { id } = request.query;
         id = id.toString();
 
-        console.log(id);
+        
         
         //@ts-ignore
         const category = await categoryService.getDataCategory(id);
        
-        console.log('controller',category);
+        
         
         return response.render("edit-categoria", {
           category,
@@ -68,13 +68,15 @@ class CategoryController {
 
       //controlar la edición de la categoria
       async updateCategory(request: Request, response: Response) {
-        const { name } = request.body;
-    
+        const { name,id } = request.body;
+      
+       
         try {
-          await categoryService.updateCategory({name}).then(() => {
+          //@ts-ignore
+          await categoryService.updateCategory({name,id}).then(() => {
             response.render("messageCategoria", {
               message: "Categoría Actualizada"
-            });``
+            });
           });
         } catch (err) {
           response.render("messageCategoria", {

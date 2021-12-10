@@ -43,6 +43,11 @@ class User {
   @IsNotEmpty()
   Password: string;
 
+  @Column()
+  @IsString()
+  @IsNotEmpty()
+  fecha: Date;
+
 
   @CreateDateColumn()
   created_at: Date;

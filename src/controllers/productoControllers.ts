@@ -60,18 +60,20 @@ class ProductController {
       //metodo para buscar Product
       async searchProduct(request: Request, response: Response) {
         let { search } = request.query;
+        
         search = search.toString();
-
+        
+        console.log(search);
     
         try {
           const products = await productService.search(search);
-          response.render("search", {
+          response.json({
             products,
             search
           });
         } catch (err) {
-          response.render("message", {
-            message: `Error al buscar el usuario: ${err.message}`
+          response.json( {
+            message: `Error el producto : ${err.message}`
           });
         }
       }

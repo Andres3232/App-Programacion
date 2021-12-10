@@ -40,7 +40,17 @@ export const login = async(req, res,) => {
         localStorage.setItem('x-token',JSON.stringify(token))
         
         const users = await userService.list();
-            
+        const options = {
+          year: 'numeric', month: 'numeric', day: 'numeric',
+          hour: 'numeric', minute: 'numeric', second: 'numeric',
+          hour12: true, 
+        };
+        users.map(user=>{
+          //@ts-ignore
+          user.fecha = new Intl.DateTimeFormat(options).format(user.fecha);
+
+        })
+    
         return res.render("index", {
             usuario,
             token,
@@ -57,7 +67,7 @@ export const login = async(req, res,) => {
 
 
 export  const signup = async(request,response) => {
-    let { username, email, Telefono, Ciudad, Estado, Password } = request.body;
+    let { username, email, Telefono, Ciudad, Estado, Password,fecha } = request.body;
     Telefono = parseInt(Telefono)
     const Rol= "User"
 
@@ -73,7 +83,8 @@ export  const signup = async(request,response) => {
           Ciudad,
           Estado,
           Rol,
-          Password
+          Password,
+          fecha
         }).then(() => {
           response.render("messageSignup", {
             message: "Usuario creado con exito"

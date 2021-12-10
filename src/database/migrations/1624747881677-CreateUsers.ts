@@ -42,6 +42,10 @@ export class CreateUsers1624747881677 implements MigrationInterface {
                         name: 'Password',
                         type: 'varchar'
                     },
+                    {
+                        name: 'fecha',
+                        type: "date"
+                    },
 
                     {
                         name: "created_at",

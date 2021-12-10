@@ -9,6 +9,17 @@ class UsuarioController {
     async listUsers(request: Request, response: Response) {
     
         const users = await userService.list();
+      
+        const options = {
+          year: 'numeric', month: 'numeric', day: 'numeric',
+          hour: 'numeric', minute: 'numeric', second: 'numeric',
+          hour12: true, 
+        };
+        users.map(user=>{
+          //@ts-ignore
+          user.fecha = new Intl.DateTimeFormat(options).format(user.fecha);
+
+        })
     
         return response.render("index", {
           users
@@ -17,7 +28,7 @@ class UsuarioController {
 
       //metodo para agregar usuario
       async createUser(request: Request, response: Response) {
-        let { username, email, Telefono, Ciudad, Estado, Rol, Password } = request.body;
+        let { username, email, Telefono, Ciudad, Estado, Rol, Password, fecha } = request.body;
         Telefono = parseInt(Telefono)
 
         const salt = bcryptjs.genSaltSync();
@@ -31,7 +42,8 @@ class UsuarioController {
             Ciudad,
             Estado,
             Rol,
-            Password
+            Password,
+            fecha
           }).then(() => {
             
             response.render("message", {
@@ -71,7 +83,16 @@ class UsuarioController {
         id = id.toString();
     
         const user = await userService.getData(id);
-    
+        const date = new Date()
+        const options = {
+          year: 'numeric', month: 'numeric', day: 'numeric',
+          hour: 'numeric', minute: 'numeric', second: 'numeric',
+          hour12: true, 
+        };
+        //@ts-ignore
+        user.fecha = new Intl.DateTimeFormat(options).format(date);
+        console.log(user.fecha);
+        
         return response.render("edit", {
           user
         });
@@ -79,10 +100,10 @@ class UsuarioController {
 
       //editar el usuario
       async updateUser(request: Request, response: Response) {
-        const { id, username, email, Telefono, Ciudad, Estado, Rol } = request.body;
+        const { id, username, email, Telefono, Ciudad, Estado, Rol, fecha } = request.body;
     
         try {
-          await userService.update({ id, username, email, Telefono, Ciudad, Estado, Rol}).then(() => {
+          await userService.update({ id, username, email, Telefono, Ciudad, Estado, Rol, fecha}).then(() => {
             response.render("message", {
               message: "Usuario actualizado"
             });

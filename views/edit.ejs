@@ -3,13 +3,13 @@
   <br>
   <div class="container">
     <div class="text-center">
-      <h2>Usuario</h2>
+      <h2>Editar Usuario</h2>
     </div>
     <br>
     <form action="./edit-user" method="POST">
       <input type="hidden" name="id" value="<%= user.id %>">
       <div class="row">
-        <div class="col-12">
+        <div class="col-6">
           <label for="username" class="form-label">Username</label>
           <input type="text" name="username" id="username" class="form-control" value="<%= user.username %>">
         </div>
@@ -31,12 +31,16 @@
           <label for="Ciudad" class="form-label">Ciudad</label>
           <input type="text" name="Ciudad" id="Ciudad" class="form-control" value="<%= user.Ciudad %>">
         </div>
+        <br>
         <div class="col-6">
           <label for="Rol" class="form-label">Rol</label>
           <input type="text" name="Rol" id="Rol" class="form-control" value="<%= user.Rol %>">
+          <br>
         </div>
+        <br>
         <div class="col-6">
           <label for="Estado" class="form-label">Estado</label>
+          
           <select name="Estado" id="Estado" class="form-select">
             <option value="<%= user.Estado %>" selected>
               <%= user.Estado %>
@@ -67,7 +71,14 @@
             <option value="TU">Tucuman</option>
           </select>
         </div>
+      <div class="row">
+        <div class="col-6">
+          <br>
+          <label for="fecha" class="form-label">Fecha de Nacimiento</label>
+          <input type="date" name="fecha" id="fecha" class="form-control" value="<%= user.fecha %>">  
+        </div>
       </div>
+    </div>
       <br>
       <div class="row">
         <div class="col-6">

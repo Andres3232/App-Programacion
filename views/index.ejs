@@ -16,8 +16,9 @@
         <th scope="col">Estado</th>
         <th scope="col">Rol</th>
         <th scope="col">Creación</th>
-        <th scope="col">Actualizar</th>
-        <th scope="col">Estado</th>
+        <th scope="col">Actualización</th>
+        <th scope="col">Fecha de Nacimiento</th>
+        <th scope="col">Opciones</th>
       </thead>
       <tbody>
         
@@ -48,6 +49,9 @@
             <td>
               <%= user.updated_at.toLocaleDateString() %>
                 <%= user.updated_at.toLocaleTimeString() %>
+            </td>
+            <td>
+              <%= user.fecha %>
             </td>
             <td>
               <div class="row">
